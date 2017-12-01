@@ -9,9 +9,10 @@ MPList = "https://www.parliament.uk/mps-lords-and-offices/mps/"
 page = urllib2.urlopen(MPList)
 soup = BeautifulSoup(page, "html.parser")
 
+# 'data' is the list of MP Url's
 data = []
 
-for i in range (1, 650):
+for i in range (1, 5):
     if i<10:
         rowId = "ctl00_ctl00_FormContent_SiteSpecificPlaceholder_PageContent_rptMembers_ctl"+ str(0) + str(i) +"_hypName"
     else:
@@ -24,33 +25,33 @@ for i in range (1, 650):
 
 
 
-for i in range (0, 649):
+for i in range (0, 4):
     #Go to specific page
     page = urllib2.urlopen(data[i])
     soup = BeautifulSoup(page, "html.parser")
 
-    #Get the data from the page
+    #Get the information from the page
     name_box = soup.findAll(id="commons-biography-header")
     name = name_box[0].get_text().strip()
+    
+    # def myfunction(name):
+    #     try:
+    #         name = unicode(name, 'utf-8').decode('utf-8')
+    #     except UnicodeEncodeError:
+    #         name = "error"
+    # split_name = name.split()
+    # first_name = split_name[0]
+    # last_name = split_name[1]
 
-    def myfunction(name):
-        try:
-            name = unicode(name, 'utf-8').decode('utf-8')
-        except UnicodeEncodeError:
-            name = "error"
-
-    split_name = name.split()
-    first_name = split_name[0]
-    last_name = split_name[1]
     interests = soup.find_all(id="biography-entry-body")
     try:
         interestsP = interests[0].get_text().strip()
     except IndexError:
-        interestsP = "N/A"
+        interestsP = ""
     try:
         interestsG = interests[1].get_text().strip()
     except IndexError:
-        interestsG = "N/A"
+        interestsG = ""
 
     #Save data to csv file
     with open('index.csv', 'a') as csv_file:
