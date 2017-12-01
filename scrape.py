@@ -11,7 +11,7 @@ soup = BeautifulSoup(page, "html.parser")
 
 data = []
 
-for i in range (100, 117):
+for i in range (1, 650):
     if i<10:
         rowId = "ctl00_ctl00_FormContent_SiteSpecificPlaceholder_PageContent_rptMembers_ctl"+ str(0) + str(i) +"_hypName"
     else:
@@ -24,7 +24,7 @@ for i in range (100, 117):
 
 
 
-for i in range (1, 15):
+for i in range (0, 649):
     #Go to specific page
     page = urllib2.urlopen(data[i])
     soup = BeautifulSoup(page, "html.parser")
