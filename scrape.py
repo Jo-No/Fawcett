@@ -12,7 +12,7 @@ soup = BeautifulSoup(page, "html.parser")
 # 'data' is the list of MP Url's
 data = []
 
-for i in range (1, 5):
+for i in range (1, 651):
     if i<10:
         rowId = "ctl00_ctl00_FormContent_SiteSpecificPlaceholder_PageContent_rptMembers_ctl"+ str(0) + str(i) +"_hypName"
     else:
@@ -25,7 +25,7 @@ for i in range (1, 5):
 
 
 
-for i in range (0, 4):
+for i in range (0, 650):
     #Go to specific page
     page = urllib2.urlopen(data[i])
     soup = BeautifulSoup(page, "html.parser")
@@ -33,7 +33,7 @@ for i in range (0, 4):
     #Get the information from the page
     name_box = soup.findAll(id="commons-biography-header")
     name = name_box[0].get_text().strip()
-    
+    name1 = name.encode('ascii', 'ignore')
     # def myfunction(name):
     #     try:
     #         name = unicode(name, 'utf-8').decode('utf-8')
@@ -56,4 +56,4 @@ for i in range (0, 4):
     #Save data to csv file
     with open('index.csv', 'a') as csv_file:
      writer = csv.writer(csv_file)
-     writer.writerow([name, interestsP, interestsG])
+     writer.writerow([name1, interestsP, interestsG])
